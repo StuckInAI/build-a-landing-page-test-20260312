@@ -5,23 +5,19 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: my-landing-page
     ports:
-      - '3000:3000'
+      - "3000:3000"
+    volumes:
+      - ./data:/app/data
+    env_file:
+      - .env
     environment:
       - NODE_ENV=production
-      - DATABASE_PATH=/app/data/database.sqlite
-      - NEXT_PUBLIC_SITE_NAME=MyLandingPage
-    volumes:
-      - sqlite_data:/app/data
+      - DATABASE_PATH=./data/database.sqlite
     restart: unless-stopped
     healthcheck:
-      test: ['CMD', 'wget', '--no-verbose', '--tries=1', '--spider', 'http://localhost:3000/']
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:3000"]
       interval: 30s
       timeout: 10s
       retries: 3
       start_period: 40s
-
-volumes:
-  sqlite_data:
-    driver: local

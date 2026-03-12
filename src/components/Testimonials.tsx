@@ -1,140 +1,83 @@
 const testimonials = [
   {
     quote:
-      "This platform completely transformed how we run our business. We went from spending hours on manual tasks to having everything automated. Our revenue grew 40% in just three months.",
+      'This platform completely transformed how our team collaborates. We ship 3x faster and our communication has never been better. I can\'t imagine going back to how we worked before.',
     name: 'Sarah Johnson',
-    role: 'CEO, TechStartup Inc.',
+    role: 'CTO at TechCorp',
     avatar: 'SJ',
-    avatarColor: 'from-pink-400 to-rose-500',
+    gradient: 'from-primary-500 to-primary-700',
     stars: 5,
   },
   {
     quote:
-      "I was skeptical at first, but the results speak for themselves. The analytics alone have given us insights we never had before. Customer retention is up 60% since we started using this.",
+      'The analytics features alone are worth the subscription. We\'ve uncovered insights we never knew existed in our data. Our decision-making is sharper and our results show it.',
     name: 'Marcus Chen',
-    role: 'CTO, Scale Digital',
+    role: 'Head of Product at GrowthLabs',
     avatar: 'MC',
-    avatarColor: 'from-blue-400 to-indigo-500',
+    gradient: 'from-accent-500 to-accent-700',
     stars: 5,
   },
   {
     quote:
-      "The best investment we made this year. Setup was incredibly easy, and the support team is outstanding. Every feature we needed was already there waiting for us.",
+      'Setup was incredibly simple, and the support team is outstanding. Within a week we had everything running smoothly and our team was up to speed. Highly recommend!',
     name: 'Emily Rodriguez',
-    role: 'Founder, GrowthLabs',
+    role: 'Operations Director at ScaleUp',
     avatar: 'ER',
-    avatarColor: 'from-green-400 to-emerald-500',
-    stars: 5,
-  },
-  {
-    quote:
-      "We evaluated 12 different platforms before choosing this one. Nothing comes close in terms of ease of use and raw capability. Our team was up and running in under an hour.",
-    name: 'David Park',
-    role: 'VP Engineering, CloudCo',
-    avatar: 'DP',
-    avatarColor: 'from-purple-400 to-violet-500',
-    stars: 5,
-  },
-  {
-    quote:
-      "The security features gave us the confidence we needed to migrate our entire operation. Compliance reports are now automated and our audit process takes days instead of weeks.",
-    name: 'Rachel Thompson',
-    role: 'COO, FinTech Solutions',
-    avatar: 'RT',
-    avatarColor: 'from-yellow-400 to-orange-500',
-    stars: 5,
-  },
-  {
-    quote:
-      "Exceptional product with even better support. We had a complex integration requirement and their team solved it within 24 hours. Highly recommend to any serious business.",
-    name: 'James Wilson',
-    role: 'Director, Enterprise Corp',
-    avatar: 'JW',
-    avatarColor: 'from-cyan-400 to-blue-500',
+    gradient: 'from-emerald-500 to-teal-700',
     stars: 5,
   },
 ];
-
-function StarRating({ count }: { count: number }) {
-  return (
-    <div className="flex space-x-1">
-      {Array.from({ length: count }).map((_, i) => (
-        <svg
-          key={i}
-          className="w-4 h-4 text-yellow-400"
-          fill="currentColor"
-          viewBox="0 0 20 20"
-        >
-          <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-        </svg>
-      ))}
-    </div>
-  );
-}
 
 export default function Testimonials() {
   return (
     <section id="testimonials" className="py-24 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Section Header */}
         <div className="text-center mb-16">
-          <span className="inline-block text-blue-600 font-semibold text-sm uppercase tracking-wider mb-3">
+          <span className="inline-block text-primary-600 font-semibold text-sm uppercase tracking-wider mb-3">
             Testimonials
           </span>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-gray-900 mb-4">
-            Loved by Businesses{' '}
-            <span className="text-blue-600">Worldwide</span>
-          </h2>
-          <p className="max-w-2xl mx-auto text-lg text-gray-500">
-            Don&apos;t just take our word for it. Here&apos;s what our customers
-            have to say about their experience.
+          <h2 className="section-heading">Loved by Teams Worldwide</h2>
+          <p className="section-subheading">
+            Don't just take our word for it. Here's what real users say about
+            their experience with our platform.
           </p>
         </div>
 
-        {/* Stats */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-16">
-          {[
-            { value: '10K+', label: 'Active Users' },
-            { value: '98%', label: 'Satisfaction Rate' },
-            { value: '150+', label: 'Countries' },
-            { value: '4.9/5', label: 'Average Rating' },
-          ].map((stat, i) => (
-            <div key={i} className="text-center p-6 bg-gray-50 rounded-2xl">
-              <p className="text-3xl font-extrabold text-blue-600">{stat.value}</p>
-              <p className="text-sm text-gray-500 mt-1">{stat.label}</p>
-            </div>
-          ))}
-        </div>
-
-        {/* Testimonials Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {testimonials.map((testimonial, index) => (
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {testimonials.map((testimonial) => (
             <div
-              key={index}
-              className="bg-gray-50 border border-gray-100 rounded-2xl p-8 hover:shadow-lg transition-shadow duration-300 flex flex-col"
+              key={testimonial.name}
+              className="card flex flex-col group hover:scale-[1.02] transition-transform duration-300 relative"
             >
-              {/* Stars */}
-              <StarRating count={testimonial.stars} />
+              {/* Quote icon */}
+              <div className="absolute top-6 right-6 opacity-10 group-hover:opacity-20 transition-opacity">
+                <svg className="w-12 h-12 text-primary-600" fill="currentColor" viewBox="0 0 32 32">
+                  <path d="M10 8C5.6 8 2 11.6 2 16s3.6 8 8 8v6l8-8c0-7.7-3.6-14-8-14zm14 0c-4.4 0-8 3.6-8 8s3.6 8 8 8v6l8-8c0-7.7-3.6-14-8-14z" />
+                </svg>
+              </div>
 
-              {/* Quote */}
-              <blockquote className="mt-4 flex-1">
-                <p className="text-gray-700 leading-relaxed text-sm">
-                  &ldquo;{testimonial.quote}&rdquo;
-                </p>
+              {/* Stars */}
+              <div className="flex space-x-1 mb-4">
+                {[...Array(testimonial.stars)].map((_, i) => (
+                  <svg key={i} className="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                  </svg>
+                ))}
+              </div>
+
+              <blockquote className="text-gray-700 leading-relaxed flex-grow mb-6 italic">
+                "{testimonial.quote}"
               </blockquote>
 
-              {/* Author */}
-              <div className="mt-6 flex items-center space-x-3">
+              <div className="flex items-center space-x-3">
                 <div
-                  className={`w-10 h-10 rounded-full bg-gradient-to-br ${testimonial.avatarColor} flex items-center justify-center text-white text-xs font-bold flex-shrink-0`}
+                  className={`w-12 h-12 rounded-full bg-gradient-to-br ${testimonial.gradient} flex items-center justify-center text-white font-bold text-sm flex-shrink-0 shadow-md`}
                 >
                   {testimonial.avatar}
                 </div>
                 <div>
-                  <p className="text-sm font-semibold text-gray-900">
-                    {testimonial.name}
-                  </p>
-                  <p className="text-xs text-gray-500">{testimonial.role}</p>
+                  <p className="font-semibold text-gray-900">{testimonial.name}</p>
+                  <p className="text-sm text-gray-500">{testimonial.role}</p>
                 </div>
               </div>
             </div>

@@ -1,50 +1,47 @@
-# Stage 1: Install dependencies
-FROM node:20-alpine AS dependencies
+FROM node:20-alpine AS base
+
+# Install dependencies for better-sqlite3
+RUN apk add --no-cache python3 make g++ sqlite
+
 WORKDIR /app
 
-RUN apk add --no-cache libc6-compat python3 make g++
-
+# Copy package files
 COPY package.json ./
+COPY package-lock.json ./
+
+# Install dependencies
 RUN npm i
 
-# Stage 2: Build the application
-FROM node:20-alpine AS builder
-WORKDIR /app
-
-RUN apk add --no-cache libc6-compat python3 make g++
-
-COPY --from=dependencies /app/node_modules ./node_modules
+# Copy source code
 COPY . .
 
-ENV NEXT_TELEMETRY_DISABLED=1
-ENV NODE_ENV=production
-
+# Build the application
 RUN npm run build
 
-# Stage 3: Production runner
-FROM node:20-alpine AS production
+# Production image
+FROM node:20-alpine AS runner
+
+RUN apk add --no-cache sqlite
+
 WORKDIR /app
 
-RUN apk add --no-cache libc6-compat
-
 ENV NODE_ENV=production
-ENV NEXT_TELEMETRY_DISABLED=1
-
-RUN addgroup --system --gid 1001 nodejs
-RUN adduser --system --uid 1001 nextjs
-
-COPY --from=builder /app/public ./public
-COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
-COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
-
-# Create data directory for SQLite
-RUN mkdir -p /app/data && chown -R nextjs:nodejs /app/data
-
-USER nextjs
-
-EXPOSE 3000
-
 ENV PORT=3000
 ENV HOSTNAME="0.0.0.0"
+
+# Create data directory
+RUN mkdir -p /app/data
+
+# Copy standalone output
+COPY --from=base /app/.next/standalone ./
+COPY --from=base /app/.next/static ./.next/static
+COPY --from=base /app/public ./public
+
+# Copy native modules needed for better-sqlite3
+COPY --from=base /app/node_modules/better-sqlite3 ./node_modules/better-sqlite3
+COPY --from=base /app/node_modules/bindings ./node_modules/bindings
+COPY --from=base /app/node_modules/file-uri-to-path ./node_modules/file-uri-to-path
+
+EXPOSE 3000
 
 CMD ["node", "server.js"]

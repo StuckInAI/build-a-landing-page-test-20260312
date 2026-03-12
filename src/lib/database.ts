@@ -1,16 +1,15 @@
 import 'reflect-metadata';
 import { DataSource } from 'typeorm';
-import { Subscriber } from '@/entities/Subscriber';
+import { ContactSubmission } from '@/entities/ContactSubmission';
 import path from 'path';
 import fs from 'fs';
 
 const dbPath = process.env.DATABASE_PATH || './data/database.sqlite';
 const resolvedDbPath = path.resolve(process.cwd(), dbPath);
+const dbDir = path.dirname(resolvedDbPath);
 
-// Ensure data directory exists
-const dataDir = path.dirname(resolvedDbPath);
-if (!fs.existsSync(dataDir)) {
-  fs.mkdirSync(dataDir, { recursive: true });
+if (!fs.existsSync(dbDir)) {
+  fs.mkdirSync(dbDir, { recursive: true });
 }
 
 let dataSource: DataSource | null = null;
@@ -23,9 +22,9 @@ export async function getDataSource(): Promise<DataSource> {
   dataSource = new DataSource({
     type: 'better-sqlite3',
     database: resolvedDbPath,
-    entities: [Subscriber],
     synchronize: true,
-    logging: process.env.NODE_ENV === 'development',
+    logging: false,
+    entities: [ContactSubmission],
   });
 
   await dataSource.initialize();
